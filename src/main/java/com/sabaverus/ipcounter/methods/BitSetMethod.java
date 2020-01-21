@@ -80,4 +80,19 @@ public class BitSetMethod extends Method {
 
 		return total;
 	}
+	
+	/**
+	 * Looking in 
+	 * 
+	 * @param ip IPv4 string
+	 * @return
+	 */
+	public boolean isSet(String ip) {
+		
+		long ipDecimal = getIpAsNumber(ip);
+		int chunkIndex = getChunkIndex(ipDecimal);
+		int ipBitSetIndex = getIpBitSetIndex(ipDecimal);
+		
+		return bitset[chunkIndex].get(ipBitSetIndex);
+	}
 }
