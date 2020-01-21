@@ -82,14 +82,28 @@ public class BitSetMethod extends Method {
 	}
 	
 	/**
-	 * Looking in 
+	 * Looking in collection for given address
 	 * 
-	 * @param ip IPv4 string
+	 * @param ip IPv4 address string
 	 * @return
 	 */
 	public boolean isSet(String ip) {
 		
 		long ipDecimal = getIpAsNumber(ip);
+		int chunkIndex = getChunkIndex(ipDecimal);
+		int ipBitSetIndex = getIpBitSetIndex(ipDecimal);
+		
+		return bitset[chunkIndex].get(ipBitSetIndex);
+	}
+	
+	/**
+	 * Looking in collection for given address by IPv4 in decimal format
+	 * 
+	 * @param ipDecimal IPv4 address in decimal format
+	 * @return 
+	 */
+	public boolean isSet(long ipDecimal) {
+		
 		int chunkIndex = getChunkIndex(ipDecimal);
 		int ipBitSetIndex = getIpBitSetIndex(ipDecimal);
 		
