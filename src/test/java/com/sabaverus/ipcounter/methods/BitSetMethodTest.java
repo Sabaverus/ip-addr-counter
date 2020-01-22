@@ -18,7 +18,7 @@ public class BitSetMethodTest {
 		BitSetMethod bitset = new BitSetMethod();
 		
 		ip = "0.0.0.0";
-		number = BitSetMethod.getIpAsNumber(ip);
+		number = Method.getIpAsNumber(ip);
 		index = BitSetMethod.getIpBitSetIndex(number);
 		assertEquals(ip, 0, number);
 		assertEquals(ip + " BitSet index", 0, index);
@@ -27,7 +27,7 @@ public class BitSetMethodTest {
 		assertEquals(ip + " checking must be in array", true, bitset.isSet(ip));
 		
 		ip = "127.255.255.255";
-		number = BitSetMethod.getIpAsNumber(ip);
+		number = Method.getIpAsNumber(ip);
 		index = BitSetMethod.getIpBitSetIndex(number);
 		assertEquals(ip, Integer.MAX_VALUE, number);
 		assertEquals(ip + " BitSet index must be same as Integer.MAX_VALUE", Integer.MAX_VALUE, index);
@@ -36,7 +36,7 @@ public class BitSetMethodTest {
 		assertEquals(ip + " checking must be in array", true, bitset.isSet(ip));
 		
 		ip = "128.0.0.0";
-		number = BitSetMethod.getIpAsNumber(ip);
+		number = Method.getIpAsNumber(ip);
 		index = BitSetMethod.getIpBitSetIndex(number);
 		assertEquals(ip, 1L + Integer.MAX_VALUE, number);
 		assertEquals(ip + " must goin to second chunk at start of bitset", 0, index);
@@ -45,7 +45,7 @@ public class BitSetMethodTest {
 		assertEquals(ip + " checking must be in array", true, bitset.isSet(ip));
 		
 		ip = "255.255.255.254";
-		number = BitSetMethod.getIpAsNumber(ip);
+		number = Method.getIpAsNumber(ip);
 		index = BitSetMethod.getIpBitSetIndex(number);
 		assertEquals(ip, maxIpCount - 2, number);
 		assertEquals(ip + " BitSet index", Integer.MAX_VALUE - 1, index);
@@ -54,7 +54,7 @@ public class BitSetMethodTest {
 		assertEquals(ip + " checking must be in array", true, bitset.isSet(ip));
 		
 		ip = "255.255.255.255";
-		number = BitSetMethod.getIpAsNumber(ip);
+		number = Method.getIpAsNumber(ip);
 		index = BitSetMethod.getIpBitSetIndex(number);
 		assertEquals(ip, maxIpCount - 1, number);
 		assertEquals(ip + " BitSet index must be same as Integer.MAX_VALUE", Integer.MAX_VALUE, index);

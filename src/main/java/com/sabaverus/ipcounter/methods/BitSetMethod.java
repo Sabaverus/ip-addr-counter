@@ -1,15 +1,13 @@
 package com.sabaverus.ipcounter.methods;
 
-import java.io.InputStream;
 import java.util.BitSet;
-import java.util.Scanner;
 
 /**
  * This method stores IP address as one bit in BitSet array
  * 
  * @author Sabaverus
  */
-public class BitSetMethod extends Method {
+public class BitSetMethod implements Method {
 
 	private BitSet[] bitset;
 	public static final short CHUNK_SIZE = 2;
@@ -22,21 +20,6 @@ public class BitSetMethod extends Method {
 		}
 	}
 
-	@Override
-	public void process(InputStream stream) {
-
-		Scanner s = new Scanner(stream);
-		s.useDelimiter("\\n");
-
-		long ip;
-		while (s.hasNext()) {
-
-			ip = getIpAsNumber(s.next());
-			pushToSet(ip);
-		}
-		s.close();
-	}
-
 	/**
 	 * Calculates chunk index and BitSet index for given 
 	 * <br> IP address and storing them to collection
@@ -46,6 +29,17 @@ public class BitSetMethod extends Method {
 	public void pushToSet(long ipDecimal) {
 
 		bitset[getChunkIndex(ipDecimal)].set(getIpBitSetIndex(ipDecimal));
+	}
+
+	/**
+	 * Calculates chunk index and BitSet index for given 
+	 * <br> IP address and storing them to collection
+	 * 
+	 * @param ip IPv4 address string
+	 */
+	public void pushToSet(String ip) {
+
+		pushToSet(Method.getIpAsNumber(ip));
 	}
 
 	/**
@@ -81,19 +75,10 @@ public class BitSetMethod extends Method {
 		return total;
 	}
 	
-	/**
-	 * Looking in collection for given address
-	 * 
-	 * @param ip IPv4 address string
-	 * @return
-	 */
+	@Override
 	public boolean isSet(String ip) {
-		
-		long ipDecimal = getIpAsNumber(ip);
-		int chunkIndex = getChunkIndex(ipDecimal);
-		int ipBitSetIndex = getIpBitSetIndex(ipDecimal);
-		
-		return bitset[chunkIndex].get(ipBitSetIndex);
+
+		return isSet(Method.getIpAsNumber(ip));
 	}
 	
 	/**

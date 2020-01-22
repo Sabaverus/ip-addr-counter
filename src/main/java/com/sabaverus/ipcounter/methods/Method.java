@@ -1,11 +1,6 @@
 package com.sabaverus.ipcounter.methods;
 
-import java.io.InputStream;
-
-public abstract class Method {
-
-	public Method() {
-	}
+public interface Method {
 
 	/**
 	 * Converts IPv4 address to decimal format
@@ -33,17 +28,19 @@ public abstract class Method {
 	}
 
 	/**
-	 * Accept as parameter InputStream from any file with IP list
-	 * uses {@code java.util.Scanner} with delimeter {@code "\\n"} for
-	 * parsing stream from line to line
-	 * 
-	 * @param stream
-	 */
-	public abstract void process(InputStream stream);
-
-	/**
 	 * 
 	 * @return Count of unique IP addresses passed in current method
 	 */
 	public abstract long getResult();
+	
+	/**
+	 * Looking in collection for given address
+	 * 
+	 * @param ip IPv4 address string
+	 * @return
+	 */
+	public boolean isSet(String ip);
+	
+	
+	public boolean isSet(long ipDecimal);
 }

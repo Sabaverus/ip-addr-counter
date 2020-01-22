@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -25,11 +26,16 @@ public class IPCounter {
 //		generateZipWithALotIp(zipPath, txtPath, 100_000_000);
 		long before = System.currentTimeMillis();
 
-		InputStream in = InputStream.nullInputStream();
 		BitSetMethod bitset = new BitSetMethod();
-		try (ZipFile zipFile = new ZipFile(zipPath)) {
-			in = getInputStream(zipFile);
-			bitset.process(in);
+		try (
+			ZipFile zipFile = new ZipFile(zipPath);
+			InputStream in = getInputStream(zipFile);
+			Scanner s = new Scanner(in);
+		) {
+			s.useDelimiter("\\n");
+			while (s.hasNext()) {
+				bitset.pushToSet(s.next());
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
